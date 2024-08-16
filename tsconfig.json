@@ -1,0 +1,35 @@
+{
+	"compilerOptions": {
+		"allowJs": true,
+		"rootDir": ".",
+		"outDir": "dist",
+		"sourceMap": true,
+		"removeComments": true,
+		"importHelpers": false,
+		"esModuleInterop": true,
+		"strict": true,
+		"useUnknownInCatchVariables": false,
+		"allowSyntheticDefaultImports": true,
+		"experimentalDecorators": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"forceConsistentCasingInFileNames": true,
+		"emitDecoratorMetadata": true,
+		"module": "esnext",
+		"target": "ESNext",
+		"moduleResolution": "Bundler",
+		"skipLibCheck": true,
+		"baseUrl": "./src",
+		"paths": {
+			"@/*": ["*"],
+			"@controllers/*": ["controllers/*"],
+			"@middleware/*": ["middleware/*"],
+			"@utils/*": ["utils/*"],
+			"@interfaces/*": ["interfaces/*"]
+		}
+	},
+	"include": ["src/**/*.ts", "src/secrets/*.json", "env.d.ts"],
+	"exclude": ["src/test"]
+}
