@@ -14,5 +14,7 @@ export const env = createEnv({
 		NODE_ENV: z.enum(["production", "development"]),
 		SEC: z.string().min(5),
 		REDIS_URL: z.string().min(5),
+		SIGNER: z.string().min(5),
+		RPC_URL: z.string().url(),
 	},
 });
