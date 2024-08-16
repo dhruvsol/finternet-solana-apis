@@ -13,5 +13,6 @@ export const env = createEnv({
 		PORT: z.string().default("3001"), // Port for the backend server
 		NODE_ENV: z.enum(["production", "development"]),
 		SEC: z.string().min(5),
+		REDIS_URL: z.string().min(5),
 	},
 });
