@@ -1,7 +1,9 @@
 import { Controller } from "@/interfaces/controller.interface";
 import { RedisService } from "@/services/redis.service";
+import { getUMProgram, signerWallet } from "@/utils/contracts";
 import { encrypt } from "@/utils/crypto";
 import { logger } from "@/utils/logger";
+import { sendTx } from "@/utils/sendTx";
 import { enc } from "crypto-js";
 import { Router, Request, Response } from "express";
 
@@ -38,7 +40,18 @@ export class UserController implements Controller {
 			const data = req.body;
 
 			const encryptData = encrypt(data);
-			await this.redis.client.set("<sig>", encryptData);
+			const program = getUMProgram();
+			const ix = await program.methods
+				.createUser(Buffer.from(encryptData))
+				.accounts({
+					program: program.programId,
+				})
+				.instruction();
+			const sig = await sendTx([ix], signerWallet);
+			await this.redis.client.set(sig, encryptData);
+			return res.send({
+				signature: sig,
+			});
 		} catch (e) {
 			logger.error(e);
 			return res.status(500).send("Error: Internal Server Error");
@@ -48,7 +61,18 @@ export class UserController implements Controller {
 		try {
 			const data = req.body;
 			const encryptData = encrypt(data);
-			await this.redis.client.set("<sig>", encryptData);
+			const program = getUMProgram();
+			const ix = await program.methods
+				.updateUser(Buffer.from(encryptData))
+				.accounts({
+					program: program.programId,
+				})
+				.instruction();
+			const sig = await sendTx([ix], signerWallet);
+			await this.redis.client.set(sig, encryptData);
+			return res.send({
+				signature: sig,
+			});
 		} catch (e) {
 			logger.error(e);
 			return res.status(500).send("Error: Internal Server Error");

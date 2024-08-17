@@ -1,7 +1,9 @@
 import { Controller } from "@/interfaces/controller.interface";
 import { RedisService } from "@/services/redis.service";
+import { getTMProgram, signerWallet } from "@/utils/contracts";
 import { encrypt } from "@/utils/crypto";
 import { logger } from "@/utils/logger";
+import { sendTx } from "@/utils/sendTx";
 import { Router, Request, Response } from "express";
 
 export class TokenController implements Controller {
@@ -35,9 +37,19 @@ export class TokenController implements Controller {
 	private tokenize = async (req: Request, res: Response) => {
 		try {
 			const data = req.body;
-
+			const program = getTMProgram();
 			const encryptData = encrypt(data);
-			await this.redis.client.set("<sig>", encryptData);
+			const ix = await program.methods
+				.tokenize(Buffer.from(encryptData))
+				.accounts({
+					program: program.programId,
+				})
+				.instruction();
+			const sig = await sendTx([ix], signerWallet);
+			await this.redis.client.set(sig, encryptData);
+			return res.send({
+				signature: sig,
+			});
 		} catch (e) {
 			logger.error(e);
 			return res.status(500).send("Error: Internal Server Error");
@@ -46,9 +58,19 @@ export class TokenController implements Controller {
 	private detokenize = async (req: Request, res: Response) => {
 		try {
 			const data = req.body;
-
+			const program = getTMProgram();
 			const encryptData = encrypt(data);
-			await this.redis.client.set("<sig>", encryptData);
+			const ix = await program.methods
+				.detokenize(Buffer.from(encryptData))
+				.accounts({
+					program: program.programId,
+				})
+				.instruction();
+			const sig = await sendTx([ix], signerWallet);
+			await this.redis.client.set(sig, encryptData);
+			return res.send({
+				signature: sig,
+			});
 		} catch (e) {
 			logger.error(e);
 			return res.status(500).send("Error: Internal Server Error");
@@ -57,9 +79,19 @@ export class TokenController implements Controller {
 	private transfer = async (req: Request, res: Response) => {
 		try {
 			const data = req.body;
-
+			const program = getTMProgram();
 			const encryptData = encrypt(data);
-			await this.redis.client.set("<sig>", encryptData);
+			const ix = await program.methods
+				.approve(Buffer.from(encryptData))
+				.accounts({
+					program: program.programId,
+				})
+				.instruction();
+			const sig = await sendTx([ix], signerWallet);
+			await this.redis.client.set(sig, encryptData);
+			return res.send({
+				signature: sig,
+			});
 		} catch (e) {
 			logger.error(e);
 			return res.status(500).send("Error: Internal Server Error");
