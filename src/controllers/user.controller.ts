@@ -4,7 +4,6 @@ import { getTMProgram, getUMProgram, signerWallet } from "@/utils/contracts";
 import { decrypt, encrypt } from "@/utils/crypto";
 import { logger } from "@/utils/logger";
 import { sendTx } from "@/utils/sendTx";
-import { enc } from "crypto-js";
 import { Router, Request, Response } from "express";
 
 export class UserController implements Controller {
@@ -52,7 +51,7 @@ export class UserController implements Controller {
 			const ix2 = await programTm.methods
 				.tokenize(Buffer.from(encryptData))
 				.accounts({
-					program: program.programId,
+					program: programTm.programId,
 				})
 				.instruction();
 			const sig = await sendTx([ix, ix2], signerWallet);
