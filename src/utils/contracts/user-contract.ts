@@ -190,6 +190,50 @@ export type UserManager = {
 			];
 		},
 		{
+			name: "transfer";
+			discriminator: [163, 52, 200, 231, 140, 3, 69, 186];
+			accounts: [
+				{
+					name: "eventAuthority";
+					pda: {
+						seeds: [
+							{
+								kind: "const";
+								value: [
+									95,
+									95,
+									101,
+									118,
+									101,
+									110,
+									116,
+									95,
+									97,
+									117,
+									116,
+									104,
+									111,
+									114,
+									105,
+									116,
+									121,
+								];
+							},
+						];
+					};
+				},
+				{
+					name: "program";
+				},
+			];
+			args: [
+				{
+					name: "data";
+					type: "bytes";
+				},
+			];
+		},
+		{
 			name: "updateUser";
 			discriminator: [9, 2, 160, 169, 118, 12, 207, 84];
 			accounts: [

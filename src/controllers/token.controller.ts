@@ -1,6 +1,6 @@
 import { Controller } from "@/interfaces/controller.interface";
 import { RedisService } from "@/services/redis.service";
-import { getTMProgram, signerWallet } from "@/utils/contracts";
+import { getTMProgram, getUMProgram, signerWallet } from "@/utils/contracts";
 import { decrypt, encrypt } from "@/utils/crypto";
 import { logger } from "@/utils/logger";
 import { sendTx } from "@/utils/sendTx";
@@ -80,10 +80,10 @@ export class TokenController implements Controller {
 	private transfer = async (req: Request, res: Response) => {
 		try {
 			const data = req.body;
-			const program = getTMProgram();
+			const program = getUMProgram();
 			const encryptData = encrypt(data);
 			const ix = await program.methods
-				.approve(Buffer.from(encryptData))
+				.transfer(Buffer.from(encryptData))
 				.accounts({
 					program: program.programId,
 				})
