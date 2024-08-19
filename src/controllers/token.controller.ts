@@ -1,7 +1,7 @@
 import { Controller } from "@/interfaces/controller.interface";
 import { RedisService } from "@/services/redis.service";
 import { getTMProgram, signerWallet } from "@/utils/contracts";
-import { encrypt } from "@/utils/crypto";
+import { decrypt, encrypt } from "@/utils/crypto";
 import { logger } from "@/utils/logger";
 import { sendTx } from "@/utils/sendTx";
 import { Router, Request, Response } from "express";
@@ -27,7 +27,8 @@ export class TokenController implements Controller {
 		try {
 			const { sig } = req.params;
 			const data = await this.redis.client.get(sig);
-			return res.send(data);
+			const parsed = await decrypt(data);
+			return res.send(parsed);
 		} catch (e) {
 			logger.error(e);
 			return res.status(500).send("Error: Internal Server Error");
