@@ -1,32 +1,19 @@
 {
-	"address": "A5JxZVHgXe7fn5TqJXm6Hj2zKh1ptDapae2YjtXbZJoy",
-	"metadata": {
-		"name": "token_manager",
-		"version": "0.1.0",
-		"spec": "0.1.0",
-		"description": "Created with Anchor"
-	},
+	"version": "0.1.0",
+	"name": "token_manager",
 	"instructions": [
 		{
-			"name": "approve",
-			"discriminator": [69, 74, 217, 36, 115, 117, 97, 76],
+			"name": "tokenize",
 			"accounts": [
 				{
-					"name": "event_authority",
-					"pda": {
-						"seeds": [
-							{
-								"kind": "const",
-								"value": [
-									95, 95, 101, 118, 101, 110, 116, 95, 97, 117, 116, 104, 111,
-									114, 105, 116, 121
-								]
-							}
-						]
-					}
+					"name": "eventAuthority",
+					"isMut": false,
+					"isSigner": false
 				},
 				{
-					"name": "program"
+					"name": "program",
+					"isMut": false,
+					"isSigner": false
 				}
 			],
 			"args": [
@@ -38,24 +25,16 @@
 		},
 		{
 			"name": "detokenize",
-			"discriminator": [226, 140, 142, 169, 156, 155, 32, 176],
 			"accounts": [
 				{
-					"name": "event_authority",
-					"pda": {
-						"seeds": [
-							{
-								"kind": "const",
-								"value": [
-									95, 95, 101, 118, 101, 110, 116, 95, 97, 117, 116, 104, 111,
-									114, 105, 116, 121
-								]
-							}
-						]
-					}
+					"name": "eventAuthority",
+					"isMut": false,
+					"isSigner": false
 				},
 				{
-					"name": "program"
+					"name": "program",
+					"isMut": false,
+					"isSigner": false
 				}
 			],
 			"args": [
@@ -66,25 +45,17 @@
 			]
 		},
 		{
-			"name": "tokenize",
-			"discriminator": [138, 163, 95, 8, 237, 94, 174, 234],
+			"name": "approve",
 			"accounts": [
 				{
-					"name": "event_authority",
-					"pda": {
-						"seeds": [
-							{
-								"kind": "const",
-								"value": [
-									95, 95, 101, 118, 101, 110, 116, 95, 97, 117, 116, 104, 111,
-									114, 105, 116, 121
-								]
-							}
-						]
-					}
+					"name": "eventAuthority",
+					"isMut": false,
+					"isSigner": false
 				},
 				{
-					"name": "program"
+					"name": "program",
+					"isMut": false,
+					"isSigner": false
 				}
 			],
 			"args": [
@@ -95,25 +66,17 @@
 			]
 		},
 		{
-			"name": "update_asset_metadata",
-			"discriminator": [217, 98, 205, 153, 242, 4, 41, 76],
+			"name": "updateAssetStatus",
 			"accounts": [
 				{
-					"name": "event_authority",
-					"pda": {
-						"seeds": [
-							{
-								"kind": "const",
-								"value": [
-									95, 95, 101, 118, 101, 110, 116, 95, 97, 117, 116, 104, 111,
-									114, 105, 116, 121
-								]
-							}
-						]
-					}
+					"name": "eventAuthority",
+					"isMut": false,
+					"isSigner": false
 				},
 				{
-					"name": "program"
+					"name": "program",
+					"isMut": false,
+					"isSigner": false
 				}
 			],
 			"args": [
@@ -124,25 +87,17 @@
 			]
 		},
 		{
-			"name": "update_asset_status",
-			"discriminator": [230, 38, 248, 210, 236, 202, 71, 253],
+			"name": "updateAssetMetadata",
 			"accounts": [
 				{
-					"name": "event_authority",
-					"pda": {
-						"seeds": [
-							{
-								"kind": "const",
-								"value": [
-									95, 95, 101, 118, 101, 110, 116, 95, 97, 117, 116, 104, 111,
-									114, 105, 116, 121
-								]
-							}
-						]
-					}
+					"name": "eventAuthority",
+					"isMut": false,
+					"isSigner": false
 				},
 				{
-					"name": "program"
+					"name": "program",
+					"isMut": false,
+					"isSigner": false
 				}
 			],
 			"args": [
@@ -156,21 +111,13 @@
 	"events": [
 		{
 			"name": "EncryptedLog",
-			"discriminator": [245, 134, 158, 26, 243, 176, 234, 1]
-		}
-	],
-	"types": [
-		{
-			"name": "EncryptedLog",
-			"type": {
-				"kind": "struct",
-				"fields": [
-					{
-						"name": "data",
-						"type": "bytes"
-					}
-				]
-			}
+			"fields": [
+				{
+					"name": "data",
+					"type": "bytes",
+					"index": false
+				}
+			]
 		}
 	]
 }

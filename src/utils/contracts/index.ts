@@ -1,4 +1,4 @@
-import { AnchorProvider, Program, utils } from "@coral-xyz/anchor";
+import { AnchorProvider, utils, Program } from "@coral-xyz/anchor";
 import TMIDL from "../idl/token-manager.json";
 import UMIDL from "../idl/user-manager.json";
 import { TokenManager } from "./token-contract";
@@ -15,6 +15,7 @@ export const signerWallet = web3.Keypair.fromSecretKey(
 export const getTMProgram = () => {
 	return new Program(
 		TMIDL as any,
+		new web3.PublicKey("A5JxZVHgXe7fn5TqJXm6Hj2zKh1ptDapae2YjtXbZJoy"),
 		new AnchorProvider(connection, new NodeWallet(signerWallet), {
 			commitment: "confirmed",
 		}),
@@ -23,6 +24,7 @@ export const getTMProgram = () => {
 export const getUMProgram = () => {
 	return new Program(
 		UMIDL as any,
+		new web3.PublicKey("CmFuqQTLs2nQof5uaktJn1a6k2VdbGmZPfrJufB2Vm3F"),
 		new AnchorProvider(connection, new NodeWallet(signerWallet), {
 			commitment: "confirmed",
 		}),

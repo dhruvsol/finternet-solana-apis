@@ -1,32 +1,19 @@
 {
-	"address": "CmFuqQTLs2nQof5uaktJn1a6k2VdbGmZPfrJufB2Vm3F",
-	"metadata": {
-		"name": "user_manager",
-		"version": "0.1.0",
-		"spec": "0.1.0",
-		"description": "Created with Anchor"
-	},
+	"version": "0.1.0",
+	"name": "user_manager",
 	"instructions": [
 		{
-			"name": "accept_incoming_asset",
-			"discriminator": [45, 233, 132, 111, 25, 63, 163, 235],
+			"name": "createUser",
 			"accounts": [
 				{
-					"name": "event_authority",
-					"pda": {
-						"seeds": [
-							{
-								"kind": "const",
-								"value": [
-									95, 95, 101, 118, 101, 110, 116, 95, 97, 117, 116, 104, 111,
-									114, 105, 116, 121
-								]
-							}
-						]
-					}
+					"name": "eventAuthority",
+					"isMut": false,
+					"isSigner": false
 				},
 				{
-					"name": "program"
+					"name": "program",
+					"isMut": false,
+					"isSigner": false
 				}
 			],
 			"args": [
@@ -37,83 +24,17 @@
 			]
 		},
 		{
-			"name": "create_user",
-			"discriminator": [108, 227, 130, 130, 252, 109, 75, 218],
+			"name": "updateUser",
 			"accounts": [
 				{
-					"name": "event_authority",
-					"pda": {
-						"seeds": [
-							{
-								"kind": "const",
-								"value": [
-									95, 95, 101, 118, 101, 110, 116, 95, 97, 117, 116, 104, 111,
-									114, 105, 116, 121
-								]
-							}
-						]
-					}
+					"name": "eventAuthority",
+					"isMut": false,
+					"isSigner": false
 				},
 				{
-					"name": "program"
-				}
-			],
-			"args": [
-				{
-					"name": "data",
-					"type": "bytes"
-				}
-			]
-		},
-		{
-			"name": "delete_user",
-			"discriminator": [186, 85, 17, 249, 219, 231, 98, 251],
-			"accounts": [
-				{
-					"name": "event_authority",
-					"pda": {
-						"seeds": [
-							{
-								"kind": "const",
-								"value": [
-									95, 95, 101, 118, 101, 110, 116, 95, 97, 117, 116, 104, 111,
-									114, 105, 116, 121
-								]
-							}
-						]
-					}
-				},
-				{
-					"name": "program"
-				}
-			],
-			"args": [
-				{
-					"name": "data",
-					"type": "bytes"
-				}
-			]
-		},
-		{
-			"name": "rotate_key",
-			"discriminator": [86, 240, 194, 116, 31, 3, 172, 200],
-			"accounts": [
-				{
-					"name": "event_authority",
-					"pda": {
-						"seeds": [
-							{
-								"kind": "const",
-								"value": [
-									95, 95, 101, 118, 101, 110, 116, 95, 97, 117, 116, 104, 111,
-									114, 105, 116, 121
-								]
-							}
-						]
-					}
-				},
-				{
-					"name": "program"
+					"name": "program",
+					"isMut": false,
+					"isSigner": false
 				}
 			],
 			"args": [
@@ -125,24 +46,16 @@
 		},
 		{
 			"name": "transfer",
-			"discriminator": [163, 52, 200, 231, 140, 3, 69, 186],
 			"accounts": [
 				{
-					"name": "event_authority",
-					"pda": {
-						"seeds": [
-							{
-								"kind": "const",
-								"value": [
-									95, 95, 101, 118, 101, 110, 116, 95, 97, 117, 116, 104, 111,
-									114, 105, 116, 121
-								]
-							}
-						]
-					}
+					"name": "eventAuthority",
+					"isMut": false,
+					"isSigner": false
 				},
 				{
-					"name": "program"
+					"name": "program",
+					"isMut": false,
+					"isSigner": false
 				}
 			],
 			"args": [
@@ -153,25 +66,59 @@
 			]
 		},
 		{
-			"name": "update_user",
-			"discriminator": [9, 2, 160, 169, 118, 12, 207, 84],
+			"name": "deleteUser",
 			"accounts": [
 				{
-					"name": "event_authority",
-					"pda": {
-						"seeds": [
-							{
-								"kind": "const",
-								"value": [
-									95, 95, 101, 118, 101, 110, 116, 95, 97, 117, 116, 104, 111,
-									114, 105, 116, 121
-								]
-							}
-						]
-					}
+					"name": "eventAuthority",
+					"isMut": false,
+					"isSigner": false
 				},
 				{
-					"name": "program"
+					"name": "program",
+					"isMut": false,
+					"isSigner": false
+				}
+			],
+			"args": [
+				{
+					"name": "data",
+					"type": "bytes"
+				}
+			]
+		},
+		{
+			"name": "rotateKey",
+			"accounts": [
+				{
+					"name": "eventAuthority",
+					"isMut": false,
+					"isSigner": false
+				},
+				{
+					"name": "program",
+					"isMut": false,
+					"isSigner": false
+				}
+			],
+			"args": [
+				{
+					"name": "data",
+					"type": "bytes"
+				}
+			]
+		},
+		{
+			"name": "acceptIncomingAsset",
+			"accounts": [
+				{
+					"name": "eventAuthority",
+					"isMut": false,
+					"isSigner": false
+				},
+				{
+					"name": "program",
+					"isMut": false,
+					"isSigner": false
 				}
 			],
 			"args": [
@@ -185,21 +132,13 @@
 	"events": [
 		{
 			"name": "EncryptedLog",
-			"discriminator": [245, 134, 158, 26, 243, 176, 234, 1]
-		}
-	],
-	"types": [
-		{
-			"name": "EncryptedLog",
-			"type": {
-				"kind": "struct",
-				"fields": [
-					{
-						"name": "data",
-						"type": "bytes"
-					}
-				]
-			}
+			"fields": [
+				{
+					"name": "data",
+					"type": "bytes",
+					"index": false
+				}
+			]
 		}
 	]
 }
