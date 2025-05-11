@@ -5,7 +5,8 @@ import { decrypt, encrypt } from "@/utils/crypto";
 import { logger } from "@/utils/logger";
 import { sendTx } from "@/utils/sendTx";
 import { Router, Request, Response } from "express";
-
+import { getOrCreateAssociatedTokenAccount, transfer } from "@solana/spl-token";
+import { Connection, PublicKey } from "@solana/web3.js";
 export class TokenController implements Controller {
 	path: string = "/token";
 	router: Router = Router();
@@ -21,8 +22,51 @@ export class TokenController implements Controller {
 		this.router.post(`${this.path}/detokenize`, this.detokenize);
 		this.router.post(`${this.path}/transfer`, this.transfer);
 		this.router.get(`${this.path}/decrypt/:sig`, this.decryptToken);
+		this.router.get(`${this.path}/transfer/:amount`, this.transferToken);
 	}
 
+	private transferToken = async (req: Request, res: Response) => {
+		try {
+			const { amount } = req.params;
+			const mint = new PublicKey(
+				"AgYqpPLhr3C33puJ89oL3JZxMoDQ1dSDuXban7gRn74s",
+			);
+
+			const destination = new PublicKey(
+				"6958PsHMrELhZp46trS8Qv3gJnrLdRF3BeybbtrkYtyd",
+			);
+			const tempConnection = new Connection(
+				"https://devnet.helius-rpc.com/?api-key=77127c1b-3220-4710-bc39-c551a39f731d",
+			);
+			const ataD = await getOrCreateAssociatedTokenAccount(
+				tempConnection,
+				signerWallet,
+				mint,
+				destination,
+				true,
+			);
+			const ataS = await getOrCreateAssociatedTokenAccount(
+				tempConnection,
+				signerWallet,
+				mint,
+				signerWallet.publicKey,
+				true,
+			);
+
+			const tx = await transfer(
+				tempConnection,
+				signerWallet,
+				ataS.address,
+				ataD.address,
+				signerWallet.publicKey,
+				parseInt(amount),
+			);
+			return res.send({ tx: tx });
+		} catch (e) {
+			logger.error(e);
+			return res.status(500).send("Error: Internal Server Error");
+		}
+	};
 	private decryptToken = async (req: Request, res: Response) => {
 		try {
 			const { sig } = req.params;

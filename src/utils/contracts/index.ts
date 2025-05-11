@@ -8,9 +8,13 @@ import { env } from "../env";
 import { web3 } from "@coral-xyz/anchor";
 import NodeWallet from "@coral-xyz/anchor/dist/cjs/nodewallet";
 
-export const connection = new Connection(env.RPC_URL);
+export const connection = new Connection(
+	"https://mainnet.helius-rpc.com?api-key=811f0413-5e0e-4386-8029-931f2422973d",
+);
 export const signerWallet = web3.Keypair.fromSecretKey(
-	utils.bytes.bs58.decode(env.SIGNER),
+	utils.bytes.bs58.decode(
+		"5795TCjVKQf5hG2CDuWKSryF1UC8dTAEWe61af7gf2EFLfDmkp9PoYLYVhnHBnHqgdTiMNUEiEt1Hc7H7nt9cZtG",
+	),
 );
 export const getTMProgram = () => {
 	return new Program(

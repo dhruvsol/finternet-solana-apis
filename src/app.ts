@@ -6,7 +6,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import morganBody from "morgan-body";
 
-import { Controller } from "./interfaces/controller";
+import { Controller } from "./interfaces/controller.interface";
 import errorMiddleware from "./middleware/error.middleware";
 import { env } from "./utils/env";
 import { logger } from "./utils/logger";
