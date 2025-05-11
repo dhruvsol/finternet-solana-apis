@@ -6,9 +6,9 @@ import { RedisService } from "./services/redis.service";
 const main = async () => {
 	const services = [RedisService];
 
-	for (const service of services) {
-		await service.init();
-	}
+	// for (const service of services) {
+	// 	await service.init();
+	// }
 	const app = new App([new UserController(), new TokenController()]);
 
 	app.listen();
