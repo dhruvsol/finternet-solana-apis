@@ -29,7 +29,7 @@ export class TokenController implements Controller {
 		try {
 			const { amount } = req.params;
 			const mint = new PublicKey(
-				"AgYqpPLhr3C33puJ89oL3JZxMoDQ1dSDuXban7gRn74s",
+				"J5aXcLf14U8QZephpu8ru2TUFkERe2qYupwUTWZgW3Bv",
 			);
 
 			const destination = new PublicKey(
